@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Service Bot Tester</title>
+</head>
+<body>
+    <h1>Customer Service Bot</h1>
+    <input type="text" id="user_input" placeholder="Type your message here...">
+    <button onclick="sendMessage()">Send</button>
+    <p id="chatbot_response"></p>
+    
+    <script>
+        async function sendMessage() {
+            const message = document.getElementById("user_input").value;
+            const response = await fetch('/chatbot', {
+                method: 'POST',
+                headers: {
+                    'Content-Type' : 'application/json',
+                },
+                body: JSON.stringify({ message: message }),
+
+            });
+            const data = await response.json();
+            document.getElementById("chatbot_response").innerText = data.response;
+        }
+    </script>
+</body>
+</html>
